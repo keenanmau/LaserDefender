@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour {
 
     public float speed;
-    Vector3 ship_position;
     public float minX, maxX;
     // Use this for initialization
     void Start () {
-        speed = 1;
-        ship_position = new Vector3(0.5f, this.transform.position.y, 0f);
+		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
+		Vector3 leftmost = Camera.main.ViewportToWorldPoint (new Vector3 (0,0, distanceToCamera));
+		Vector3 rightmost = Camera.main.ViewportToWorldPoint (new Vector3 (1,0, distanceToCamera));
+        
     }
 	
 	// Update is called once per frame
@@ -30,6 +31,10 @@ public class PlayerShip : MonoBehaviour {
         {
 			this.transform.position +=  Vector3.left * speed * Time.deltaTime;
         }
+
+		float newX = Mathf.Clamp (transform.position.x, minX, maxX);
+
+		transform.position = new Vector3 (newX, transform.position.y, transform.position.z);
 
         
     }
