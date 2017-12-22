@@ -6,11 +6,16 @@ public class PlayerShip : MonoBehaviour {
 
     public float speed;
     public float minX, maxX;
+	public float padding;
     // Use this for initialization
     void Start () {
+		padding = 1f;
 		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
 		Vector3 leftmost = Camera.main.ViewportToWorldPoint (new Vector3 (0,0, distanceToCamera));
 		Vector3 rightmost = Camera.main.ViewportToWorldPoint (new Vector3 (1,0, distanceToCamera));
+		minX = leftmost.x + padding;
+		maxX = rightmost.x - padding;
+
         
     }
 	
