@@ -432,7 +432,7 @@ MonoBehaviour:
     type: 2}
   width: 5
   height: 5
-  speed: 5
+  speed: 10
 --- !u!4 &1763549539
 Transform:
   m_ObjectHideFlags: 0

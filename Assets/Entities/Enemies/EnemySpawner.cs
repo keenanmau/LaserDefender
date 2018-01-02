@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour {
 	void Start () {
 		
 		foreach (Transform child in transform) {
-			GameObject enemy = Instantiate (enemyPrefab, child.transform.position, Quaternion.identity);
+			GameObject enemy = Instantiate (enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
 			enemy.transform.parent = child;
 		}
 		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
@@ -31,17 +31,18 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Update () {
 		if (movingRight) {
-			transform.position += new Vector3 (speed * Time.deltaTime, 0);
+			transform.position += Vector3.right * speed * Time.deltaTime;
 		} else {
-			transform.position += new Vector3 (-speed * Time.deltaTime, 0);
+			transform.position += Vector3.left * speed * Time.deltaTime;
 		}
 
 		float right_edge_formation = transform.position.x + (width / 2);
 		float left_edge_formation = transform.position.x - (width / 2);
 
-		if ( right_edge_formation >= maxX || left_edge_formation <= minX) {
-			movingRight = !movingRight;
-		
+		if ( right_edge_formation >= maxX) {
+			movingRight = false;
+		}else if ( left_edge_formation <= minX){
+			movingRight = true;
 		}
 		
 
