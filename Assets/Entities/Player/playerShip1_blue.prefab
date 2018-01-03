@@ -58,6 +58,7 @@ MonoBehaviour:
   padding: 0
   blue_laser: {fileID: 1449682845770940, guid: ccde44b677e3d1540a63923f6c62d2ad, type: 2}
   laser_velocity: 10
+  refire_Rate: 0.1
 --- !u!212 &212493179688354542
 SpriteRenderer:
   m_ObjectHideFlags: 1

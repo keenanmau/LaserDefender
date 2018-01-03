@@ -11,6 +11,7 @@ public class PlayerShip : MonoBehaviour {
 	public GameObject blue_laser;
 	public float laser_velocity;
 	private Rigidbody2D rb;
+	public float refire_Rate = 0.1f;
 
     void Start () {
 		padding = .5f;
@@ -24,9 +25,13 @@ public class PlayerShip : MonoBehaviour {
     }
 
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {
-			Fire ();
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			InvokeRepeating ("Fire", 0.01f, refire_Rate);
 		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			CancelInvoke ("Fire");
+		}
+
         moveShip();        
     }
 
