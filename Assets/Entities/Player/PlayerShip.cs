@@ -9,8 +9,7 @@ public class PlayerShip : MonoBehaviour {
 	public float padding;
 
 	public GameObject blue_laser;
-	public float laser_velocity;
-	private Rigidbody2D rb;
+	public float laser_velocity = 10;
 	public float refire_Rate = 0.1f;
 
     void Start () {
@@ -38,7 +37,6 @@ public class PlayerShip : MonoBehaviour {
 	void Fire(){
 		GameObject laserbeam = Instantiate (blue_laser, transform.position, Quaternion.identity) as GameObject;
 		laserbeam.GetComponent<Rigidbody2D> ().velocity = new Vector3(0, laser_velocity);
-		//rb.velocity = ;
 	}
 
     void moveShip()
