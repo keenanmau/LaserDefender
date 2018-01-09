@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61897895574665702}
   - component: {fileID: 50839412055823710}
   - component: {fileID: 114354550899973240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyShip_Black_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   red_laser: {fileID: 1026106784911678, guid: 4a34668e167f2344eaf9e60a04acb7ea, type: 2}
   refire_rate: 1
   laser_velocity: 10
+  shots_per_second: 0.5
 --- !u!212 &212064571115840142
 SpriteRenderer:
   m_ObjectHideFlags: 1

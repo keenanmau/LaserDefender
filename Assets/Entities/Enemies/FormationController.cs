@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehavior: MonoBehaviour {
+public class FormationController: MonoBehaviour {
 
 	public float hitpoints = 1000;
 	public GameObject red_laser;
 	public float refire_rate = 1f;
 	public float laser_velocity;
+	public float shots_per_second = 0.5f;
 
 	void OnTriggerEnter2D(Collider2D collider){
 		Projectile missile = collider.gameObject.GetComponent<Projectile>();
@@ -17,15 +18,29 @@ public class EnemyBehavior: MonoBehaviour {
 			if (hitpoints <= 0) {
 				Destroy (gameObject);
 			}
-			Debug.Log ("Hit");
 		}
 	}
 
 	void Update(){
-		Fire();
+		float probability = Time.deltaTime * shots_per_second;
+		if(Random.value < probability){
+			Fire();
+		}
 
+		allMembersDead ();
+			//Debug.Log ("All enemies dead");
+		
+	}
 
-
+	bool allMembersDead(){
+		Debug.Log (transform);
+		foreach(Transform childPositionGameObject in transform){
+			Debug.Log ("child");
+			if (childPositionGameObject.childCount > 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	void Fire(){

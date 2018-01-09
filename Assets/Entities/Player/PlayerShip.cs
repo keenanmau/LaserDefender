@@ -7,6 +7,7 @@ public class PlayerShip : MonoBehaviour {
     public float speed;
     public float minX, maxX;
 	public float padding;
+	public float hit_points = 250;
 
 	public GameObject blue_laser;
 	public float laser_velocity = 10;
@@ -34,8 +35,25 @@ public class PlayerShip : MonoBehaviour {
         moveShip();        
     }
 
+	void OnTriggerEnter2D(Collider2D collider){
+		Projectile missile = collider.gameObject.GetComponent<Projectile>();
+
+		if(missile){
+			hit_points -= missile.getDamage ();
+			missile.Hit ();
+			if (hit_points <= 0) {
+				Destroy (gameObject);
+			}
+		
+
+		}
+
+
+	}
+
 	void Fire(){
-		GameObject laserbeam = Instantiate (blue_laser, transform.position, Quaternion.identity) as GameObject;
+		Vector3 offset = new Vector3 (0, 1, 0);
+		GameObject laserbeam = Instantiate (blue_laser, transform.position + offset, Quaternion.identity) as GameObject;
 		laserbeam.GetComponent<Rigidbody2D> ().velocity = new Vector3(0, laser_velocity);
 	}
 
@@ -54,4 +72,6 @@ public class PlayerShip : MonoBehaviour {
 
         
     }
+
+
 }
