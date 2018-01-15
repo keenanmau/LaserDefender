@@ -562,9 +562,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1493327092396176, guid: 6f21236f42745b54d8656c5f8d484f7b,
     type: 2}
-  width: 5
+  width: 10
   height: 5
-  speed: 10
+  speed: 5
 --- !u!4 &1763549539
 Transform:
   m_ObjectHideFlags: 0

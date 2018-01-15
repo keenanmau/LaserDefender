@@ -2,40 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FormationController: MonoBehaviour {
+public class FormationController : MonoBehaviour {
+	public GameObject enemyPrefab;
+	public float width = 10f;
+	public float height = 5f;
+	public float speed = 5f;
 
-	public float hitpoints = 1000;
-	public GameObject red_laser;
-	public float refire_rate = 1f;
-	public float laser_velocity;
-	public float shots_per_second = 0.5f;
+	private float minX, maxX;
+	private bool movingRight = true;
 
-	void OnTriggerEnter2D(Collider2D collider){
-		Projectile missile = collider.gameObject.GetComponent<Projectile>();
-		if(missile){
-			hitpoints -= missile.getDamage ();
-			missile.Hit ();
-			if (hitpoints <= 0) {
-				Destroy (gameObject);
-			}
+	void Start () {
+		SpawnEnemies ();
+		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
+		Vector3 leftedge = Camera.main.ViewportToWorldPoint (new Vector3 (0,0, distanceToCamera));
+		Vector3 rightedge = Camera.main.ViewportToWorldPoint (new Vector3 (1,0, distanceToCamera));
+		minX = leftedge.x;
+		maxX = rightedge.x;
+	}
+
+	void SpawnEnemies(){
+		foreach (Transform child in transform) {
+			GameObject enemy = Instantiate (enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
+			enemy.transform.parent = child;
 		}
 	}
 
-	void Update(){
-		float probability = Time.deltaTime * shots_per_second;
-		if(Random.value < probability){
-			Fire();
+	void Update () {
+		if (movingRight) {
+			transform.position += Vector3.right * speed * Time.deltaTime;
+		} else {
+			transform.position += Vector3.left * speed * Time.deltaTime;
 		}
 
-		allMembersDead ();
-			//Debug.Log ("All enemies dead");
-		
+		float right_edge_formation = transform.position.x + (width / 2);
+		float left_edge_formation = transform.position.x - (width / 2);
+
+		if ( right_edge_formation >= maxX) {
+			movingRight = false;
+		}else if ( left_edge_formation <= minX){
+			movingRight = true;
+		}
+		if (allMembersDead ()) {
+			Debug.Log ("All Members Dead");
+			SpawnEnemies ();
+		}
 	}
 
 	bool allMembersDead(){
-		Debug.Log (transform);
 		foreach(Transform childPositionGameObject in transform){
-			Debug.Log ("child");
 			if (childPositionGameObject.childCount > 0) {
 				return false;
 			}
@@ -43,10 +57,7 @@ public class FormationController: MonoBehaviour {
 		return true;
 	}
 
-	void Fire(){
-		Vector3 newpos = transform.position - new Vector3 (0, 2, 0);
-		GameObject laserbeam = Instantiate (red_laser, newpos, Quaternion.identity) as GameObject;
-		laserbeam.GetComponent<Rigidbody2D> ().velocity = new Vector3(0, -laser_velocity);
+	public void OnDrawGizmos(){
+		Gizmos.DrawWireCube (transform.position, new Vector3(width, height));
 	}
-
 }
