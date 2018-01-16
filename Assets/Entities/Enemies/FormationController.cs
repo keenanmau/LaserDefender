@@ -7,12 +7,13 @@ public class FormationController : MonoBehaviour {
 	public float width = 10f;
 	public float height = 5f;
 	public float speed = 5f;
+    public float spawnDelay = 1f;
 
 	private float minX, maxX;
 	private bool movingRight = true;
 
 	void Start () {
-		SpawnEnemies ();
+		SpawnUntilFull ();
 		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
 		Vector3 leftedge = Camera.main.ViewportToWorldPoint (new Vector3 (0,0, distanceToCamera));
 		Vector3 rightedge = Camera.main.ViewportToWorldPoint (new Vector3 (1,0, distanceToCamera));
@@ -42,13 +43,36 @@ public class FormationController : MonoBehaviour {
 		}else if ( left_edge_formation <= minX){
 			movingRight = true;
 		}
-		if (allMembersDead ()) {
+		if (AllMembersDead ()) {
 			Debug.Log ("All Members Dead");
-			SpawnEnemies ();
+			SpawnUntilFull ();
 		}
 	}
 
-	bool allMembersDead(){
+    void SpawnUntilFull()
+    {
+        Transform freePosition = NextFreePosition();
+        if (freePosition){
+            GameObject enemy = Instantiate(enemyPrefab, freePosition.position, Quaternion.identity) as GameObject;
+            enemy.transform.parent = freePosition;
+        }
+        if (!AllMembersDead()) {
+            Invoke("SpawnUntilFull", spawnDelay);
+        }
+    }
+
+    Transform NextFreePosition(){
+        foreach(Transform childPositionGameObject in transform)
+        {
+            if(childPositionGameObject.childCount == 0)
+            {
+                return childPositionGameObject;
+            }
+        }
+        return null;
+    }
+
+	bool AllMembersDead(){
 		foreach(Transform childPositionGameObject in transform){
 			if (childPositionGameObject.childCount > 0) {
 				return false;
