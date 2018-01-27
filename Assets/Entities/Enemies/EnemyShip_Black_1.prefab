@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61897895574665702}
   - component: {fileID: 50839412055823710}
   - component: {fileID: 114354550899973240}
-  - component: {fileID: 95040617919504598}
+  - component: {fileID: 95652823636480514}
   m_Layer: 9
   m_Name: EnemyShip_Black_1
   m_TagString: Untagged
@@ -89,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8125, y: 0.65625}
   m_EdgeRadius: 0
---- !u!95 &95040617919504598
+--- !u!95 &95652823636480514
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
