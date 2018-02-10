@@ -13,6 +13,8 @@ public class PlayerShip : MonoBehaviour {
 	public float laser_velocity = 10;
 	public float refire_Rate = 0.1f;
 
+    new AudioSource audio;
+
     void Start () {
 		padding = .5f;
 		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
@@ -20,8 +22,9 @@ public class PlayerShip : MonoBehaviour {
 		Vector3 rightmost = Camera.main.ViewportToWorldPoint (new Vector3 (1,0, distanceToCamera));
 		minX = leftmost.x + padding;
 		maxX = rightmost.x - padding;
+        audio = GetComponent<AudioSource>();
 
-        
+
     }
 
 	void Update () {
@@ -52,7 +55,8 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	void Fire(){
-		Vector3 offset = new Vector3 (0, 1, 0);
+        audio.Play();
+        Vector3 offset = new Vector3 (0, 1, 0);
 		GameObject laserbeam = Instantiate (blue_laser, transform.position + offset, Quaternion.identity) as GameObject;
 		laserbeam.GetComponent<Rigidbody2D> ().velocity = new Vector3(0, laser_velocity);
 	}
