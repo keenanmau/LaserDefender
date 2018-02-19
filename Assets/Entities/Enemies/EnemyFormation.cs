@@ -12,12 +12,12 @@ public class EnemyFormation: MonoBehaviour {
     public int score_value = 100;
 
     private ScoreKeeper scorekeeper;
-    new AudioSource audio;
+    public AudioClip fireSound;
+    public AudioClip deathSound;
 
     void Start()
     {
         scorekeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
-        audio = GetComponent<AudioSource>();
 
     }
 
@@ -35,15 +35,15 @@ public class EnemyFormation: MonoBehaviour {
 			missile.Hit ();
 			if (hitpoints <= 0) {
                 scorekeeper.Score(score_value);
-				Destroy (gameObject);
+                AudioSource.PlayClipAtPoint(deathSound, transform.position);
+                Destroy (gameObject);
 			}
 		}
 	}
 
 	void Fire(){
-        audio.Play();
-		Vector3 newpos = transform.position - new Vector3 (0, 2, 0);
-		GameObject laserbeam = Instantiate (red_laser, newpos, Quaternion.identity) as GameObject;
+        AudioSource.PlayClipAtPoint(fireSound, transform.position);
+		GameObject laserbeam = Instantiate (red_laser, transform.position, Quaternion.identity) as GameObject;
 		laserbeam.GetComponent<Rigidbody2D> ().velocity = new Vector3(0, -laser_velocity);
 	}
 

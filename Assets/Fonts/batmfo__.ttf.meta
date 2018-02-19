@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0df79e9b58a30dd44a83c6b7c0f5b29e
+timeCreated: 1518402938
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: BatmanForeverOutline
+  fontNames:
+  - BatmanForeverOutline
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f30ac8b2bdd2aa1408145e2fb8a8e0b8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
