@@ -277,7 +277,7 @@ Prefab:
     - target: {fileID: 114864871981996474, guid: 6f2beebd6a7c3e24084613df8a5b0c86,
         type: 2}
       propertyPath: hit_points
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 82062707614562640, guid: 6f2beebd6a7c3e24084613df8a5b0c86, type: 2}
